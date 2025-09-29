@@ -21,6 +21,6 @@ export const signUpSchema = z.object({
 }).refine((data) => data.password === data.confirmPassword, {
     message: '* As senhas não conferem',
     path: ['confirmPassword'],
-  });;
+  });
 
 export type SignUpSchema = z.infer<typeof signUpSchema>;
