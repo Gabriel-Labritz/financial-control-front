@@ -91,7 +91,7 @@ export async function signInUser(formData: SignInSchema) {
     };
 
   } catch (error) {
-    console.log('Ocorreu um erro ao entrar com o usuário:', error);
+    console.error('Ocorreu um erro ao entrar com o usuário:', error);
     return {
       success: false,
       error: "Ocorreu um erro ao entrar, tente novamente",
