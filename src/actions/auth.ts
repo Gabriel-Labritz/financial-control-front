@@ -3,6 +3,7 @@ import { SignInSchema } from "@/schemas/sign_in_schema";
 import { SignUpSchema } from "@/schemas/sign_up.schema";
 import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 const API_BASE_URL = process.env.API_URL;
 
@@ -97,4 +98,10 @@ export async function signInUser(formData: SignInSchema) {
       error: "Ocorreu um erro ao entrar, tente novamente",
     };
   }
+}
+
+export async function logOutUser() {
+  const cookieStore = await cookies();
+  cookieStore.delete('jwt');
+  redirect('/signin');
 }
