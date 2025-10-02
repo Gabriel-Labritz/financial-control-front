@@ -7,7 +7,7 @@ import DropdownUserAvatar from "./dropdown_user_avatar";
 
 export default function Header() {
   return (
-    <header className="flex justify-between items-center w-full p-4 border-b">
+    <header className="flex justify-between items-center w-full p-4">
       {/* LEFT */}
       <SidebarTrigger />
 

@@ -80,7 +80,7 @@ export async function signInUser(formData: SignInSchema) {
         httpOnly: true,
         expires: new Date(jwtDecode(accessToken).exp! * 1000),
         path: '/',
-        sameSite: "strict" as const,
+        sameSite: "lax" as const,
       };
 
       cookieStore.set(cookieOptions);

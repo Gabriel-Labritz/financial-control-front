@@ -56,11 +56,11 @@ export default function SidebarApp() {
       </div>
       <SidebarContent className="font-medium">
         <SidebarGroup>
-          <SidebarGroupLabel>
+          <SidebarGroupLabel className="text-muted-foreground">
             Navegar
           </SidebarGroupLabel>
           <SidebarGroupContent>
-            <SidebarMenu>
+            <SidebarMenu className="text-foreground">
               {menuItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>

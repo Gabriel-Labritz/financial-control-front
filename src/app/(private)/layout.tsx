@@ -19,7 +19,7 @@ export default async function MainLayout({
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <SidebarApp />
-      <main className="border border-amber-500 w-full">
+      <main className="w-full overflow-x-hidden">
         <Header />
         {children}
       </main>
