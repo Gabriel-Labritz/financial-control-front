@@ -1,34 +1,10 @@
 "use server";
-import { cookies } from "next/headers";
-
-const API_BASE_URL = process.env.API_URL;
-
-type APIResponseError = {
-  message: string,
-  error: string,
-  statusCode: number
-}
-
-type FinancialSummary = { 
-  totalIncomes: number, 
-  totalExpenses: number, 
-  totalBalance: number 
-}
+import { fetchSecure } from "@/utils/fetch_secure";
+import { APIResponseError, ApiResponseTransactions, FinancialSummary } from "./types/types";
 
 export async function getFinancialSummary() {
   try {
-    const cookieStore = await cookies();
-    const token = cookieStore.get('jwt')?.value;
-
-    const res = await fetch(`${API_BASE_URL}/dashboard/summary`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Cookie': `jwt=${token}`
-      },
-      credentials: 'include',
-      cache: 'no-store'
-    });
+    const res = await fetchSecure({ route: '/dashboard/summary'});
 
     if (!res.ok) {
       const errorData: APIResponseError = await res.json();
@@ -51,6 +27,37 @@ export async function getFinancialSummary() {
     return {
       success: false,
       error: 'Ocorreu um erro ao carregar o balanço financeiro'
+    };
+  }
+}
+
+
+
+export async function getTransactionCount() {
+  try {
+    const res = await fetchSecure({ route: '/transaction/all'});
+
+    if (!res.ok) {
+      const errorData: APIResponseError = await res.json();
+      
+      return {
+        success: false,
+        error: errorData?.message || "Ocorreu um erro ao carregar as transações feitas",
+      }
+    }
+
+    const transactionCount: ApiResponseTransactions = await res.json();
+
+    return {
+      success: true,
+      count: transactionCount.userTransactions.length
+    }
+  } catch (error) {
+    console.error('Ocorreu um erro ao carregar as transações feitas:', error);
+
+    return {
+      success: false,
+      error: 'Ocorreu um erro ao carregar as transações feitas'
     };
   }
 }

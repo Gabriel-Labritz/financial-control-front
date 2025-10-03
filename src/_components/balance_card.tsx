@@ -3,6 +3,7 @@ import { ChartPieData, ChartPieDonut } from "./pie_chart_donut";
 import { getFinancialSummary } from "@/actions/financial";
 import CardError from "./card_error";
 import CounterAnimated from "./counter_animated";
+import { Button } from "@/components/ui/button";
 
 export default async function BalanceCard() {
   const summaryResponse = await getFinancialSummary();
@@ -21,7 +22,7 @@ export default async function BalanceCard() {
   ] as ChartPieData[];
 
   return (
-    <Card className="border-none w-full max-w-lg">
+    <Card className="border-none w-full max-w-[600px] relative">
       <CardContent className="flex items-center gap-4">
         <div className="w-32 h-32 flex-shrink-0">
           <ChartPieDonut data={chartData}/>
@@ -34,6 +35,7 @@ export default async function BalanceCard() {
             </p>
           </div>
         </div>
+        <Button variant="link" className="absolute right-3 top-3 xl:right-6 xl:top-6">+ Transação</Button>
       </CardContent>
     </Card>
   );
